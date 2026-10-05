@@ -1,0 +1,788 @@
+/* AlgoStudio - Modern IDE with Tabs & Welcome Screen */
+:root {
+    --bg-page: #1a1a1c;
+    --bg-header: #202024;
+    --bg-tabs: #18181c;
+    --bg-tab-active: #1e1e1e;
+    --bg-tab-inactive: #151518;
+    --bg-editor: #1e1e1e;
+    --bg-console: #141416;
+    --border: #2e2e34;
+    
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #10b981;
+    --success-hover: #059669;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-mono: "Consolas", "Cascadia Code", "Courier New", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ================= 1. HEADER ================= */
+.app-header {
+    height: 48px;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    user-select: none;
+    z-index: 20;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.brand-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Buttons */
+.btn {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    font-family: var(--font-ui);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.btn-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.btn-secondary {
+    background-color: #27272c;
+    border-color: #36363e;
+    color: #e4e4e7;
+}
+
+.btn-secondary:hover {
+    background-color: #32323a;
+    color: #ffffff;
+}
+
+.btn-run {
+    background-color: var(--success);
+    border-color: #059669;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.btn-run:hover {
+    background-color: var(--success-hover);
+}
+
+.btn-stop {
+    background-color: var(--danger);
+    border-color: #b91c1c;
+    color: #ffffff;
+}
+
+.btn-stop:hover {
+    background-color: var(--danger-hover);
+}
+
+/* ================= 2. TABS BAR ================= */
+.tabs-nav {
+    height: 36px;
+    background-color: var(--bg-tabs);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    user-select: none;
+    z-index: 10;
+}
+
+.tabs-list {
+    display: flex;
+    height: 100%;
+}
+
+.tab-item {
+    height: 100%;
+    padding: 0 12px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--bg-tab-inactive);
+    border-right: 1px solid var(--border);
+    border-top: 2px solid transparent;
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.tab-item:hover {
+    background-color: #1a1a1e;
+    color: #ffffff;
+}
+
+.tab-item.active {
+    background-color: var(--bg-tab-active);
+    color: #ffffff;
+    border-top-color: var(--primary);
+}
+
+.tab-icon {
+    width: 13px;
+    height: 13px;
+    color: #60a5fa;
+}
+
+.tab-close {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71717a;
+    font-size: 12px;
+    transition: all 0.15s;
+}
+
+.tab-close:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.tab-btn-add {
+    width: 32px;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.tab-btn-add:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tabs-nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 14px;
+}
+
+/* Dropdown */
+.select-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1e;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0 8px;
+    height: 24px;
+}
+
+.select-box select {
+    background: transparent;
+    color: #e4e4e7;
+    border: none;
+    outline: none;
+    font-size: 11.5px;
+    cursor: pointer;
+    appearance: none;
+    padding-right: 18px;
+}
+
+.select-box select option {
+    background-color: #222226;
+    color: #f4f4f5;
+}
+
+.select-icon {
+    width: 12px;
+    height: 12px;
+    color: #a1a1aa;
+    margin-right: 6px;
+}
+
+.select-chevron {
+    position: absolute;
+    right: 6px;
+    width: 11px;
+    height: 11px;
+    color: #71717a;
+    pointer-events: none;
+}
+
+.cursor-info {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font-mono);
+}
+
+/* ================= 3. MAIN WORKSPACE ================= */
+.main-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ================= ROUTING & DISPLAY (ZERO-FLASH) ================= */
+html.route-editor #welcome-screen {
+    display: none !important;
+}
+html.route-editor #editor-view {
+    display: flex !important;
+}
+html.route-editor #console-section {
+    display: flex !important;
+}
+/* Cacher Enregistrer, Tester et Ln/Col sur la page d'accueil */
+html.route-home #btn-save,
+html.route-home #btn-run,
+html.route-home #btn-stop,
+html.route-home #editor-status-info {
+    display: none !important;
+}
+
+/* Afficher Enregistrer, Tester et Ln/Col uniquement dans le fichier de code */
+html.route-editor #btn-save {
+    display: inline-flex !important;
+}
+html.route-editor #btn-run {
+    display: inline-flex;
+}
+html.route-editor #editor-status-info {
+    display: inline-block !important;
+}
+
+/* WELCOME SCREEN */
+.welcome-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    overflow-y: auto;
+    background: radial-gradient(circle at 50% 25%, #22222a 0%, #151518 70%);
+}
+
+.welcome-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.welcome-logo-badge {
+    margin-bottom: 12px;
+}
+
+.welcome-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.welcome-subtitle {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+/* BIG CENTRAL BUTTONS */
+.welcome-big-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.big-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    text-align: left;
+}
+
+.btn-primary-action {
+    background-color: var(--primary);
+    border-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary-action:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary-action {
+    background-color: #25252b;
+    border-color: #383842;
+    color: #e4e4e7;
+}
+
+.btn-secondary-action:hover {
+    background-color: #2e2e36;
+    border-color: #4c4c58;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.btn-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-main-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-sub-text {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+/* RECENT FILES SECTION */
+.recent-files-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #1a1a1f;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+}
+
+.recent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 8px;
+}
+
+.recent-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-clear-recent {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.btn-clear-recent:hover {
+    color: #ef4444;
+}
+
+.recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.recent-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background 0.15s;
+}
+
+.recent-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.recent-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.recent-file-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.recent-file-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.recent-empty {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* ================= 4. EDITOR VIEW ================= */
+.editor-view {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--bg-editor);
+}
+
+.editor-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* ================= 5. CONSOLE SECTION ================= */
+.console-section {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-console);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.console-header {
+    height: 34px;
+    background-color: #1a1a1d;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    user-select: none;
+}
+
+.console-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.console-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.terminal-tab-icon {
+    width: 14px;
+    height: 14px;
+    color: #60a5fa;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.dot-ready { background-color: var(--success); }
+.dot-running { background-color: #facc15; animation: pulse 1s infinite; }
+.dot-error { background-color: var(--danger); }
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.console-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exec-time-badge {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #a1a1aa;
+    font-size: 10.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+}
+
+.btn-clear-terminal {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.btn-clear-terminal:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.clear-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* Console Body */
+.console-viewport {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 16px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.terminal-output {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.terminal-welcome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #71717a;
+    font-size: 11.5px;
+}
+
+.welcome-badge {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.log-info { color: #60a5fa; }
+.log-stdout { color: #e4e4e7; }
+.log-success { color: #34d399; font-weight: 600; }
+.log-warning { color: #fbbf24; }
+.log-error { color: #f87171; font-weight: 600; }
+
+/* Interactive Input */
+.terminal-input-prompt-bar {
+    display: flex;
+    align-items: center;
+    background-color: #1e1e24;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    gap: 8px;
+}
+
+.prompt-prefix {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.prompt-arrow {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.prompt-label {
+    color: #93c5fd;
+    font-weight: 600;
+    font-size: 12.5px;
+}
+
+.terminal-input-box {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    outline: none;
+}
+
+.btn-prompt-send {
+    height: 26px;
+    padding: 0 10px;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-prompt-send:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Fallback Editor Styles */
+.custom-editor-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-editor);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.editor-gutter {
+    width: 48px;
+    background-color: #1a1a1a;
+    color: #71717a;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    user-select: none;
+    border-right: 1px solid #262626;
+}
+
+.gutter-line {
+    height: 22px;
+}
+
+.editor-textarea-wrapper {
+    flex: 1;
+    position: relative;
+    height: 100%;
+}
+
+.editor-textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: #d4d4d8;
+    border: none;
+    outline: none;
+    padding: 10px;
+    resize: none;
+    white-space: pre;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+    tab-size: 4;
+}
+
+.monaco-glyph-breakpoint {
+    background: #ef4444;
+    border-radius: 50%;
+    margin-left: 5px;
+    width: 10px !important;
+    height: 10px !important;
+    margin-top: 5px;
+}
+.monaco-glyph-executing {
+    color: #fbbf24;
+    margin-left: 3px;
+    font-size: 11px;
+}
+.monaco-glyph-executing::before {
+    content: "▶";
+}
+.monaco-executing-line {
+    background: rgba(251, 191, 36, 0.15) !important;
+    border-left: 3px solid #fbbf24 !important;
+}
