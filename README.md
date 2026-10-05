@@ -1,80 +1,65 @@
-# Algorithme Studio — Visual Studio Code Edition (OFPPT)
+# AlgoStudio ⚡
 
-Un environnement de développement complet (IDE Web) reprenant l'interface officielle de **Visual Studio Code**, spécialement conçu pour écrire, tester et exécuter le pseudo-code algorithmique en français conforme aux cours et examens de l'**OFPPT**.
+Un environnement de développement complet (IDE Web) moderne et léger, conçu pour écrire, tester et simuler des algorithmes en pseudo-code français avec exécution interactive et autocomplétion intelligente.
 
 ---
 
-## 🚀 Comment lancer le site ?
+## 🌐 Démo en ligne (GitHub Pages)
 
-### Méthode 1 (Simple - 1 Clic sous Windows) :
-Double-cliquez sur le fichier **`lancer_studio.bat`**. Il lance automatiquement le serveur local et ouvre votre navigateur par défaut sur :
-`http://localhost:8080/index.html`
+👉 **Accéder directement à AlgoStudio :**  
+### **[https://youssef-out.github.io/AlgoStudio/](https://youssef-out.github.io/AlgoStudio/)**
 
-### Méthode 2 (Ligne de commande Python) :
-```bash
-python server.py
-```
-
-### Méthode 3 (Directement dans le navigateur) :
-Double-cliquez simplement sur le fichier **`index.html`**.
+> **Dépôt GitHub :** [https://github.com/youssef-out/AlgoStudio](https://github.com/youssef-out/AlgoStudio)
 
 ---
 
 ## ✨ Fonctionnalités Principales
 
-1. **Interface authentique Visual Studio Code** :
-   - Thème officiel **VS Code Dark+** avec barre de titre, Activity Bar, barre latérale et barre d'état.
-   - Éditeur de code Monaco (le même que dans VS Code) avec coloration syntaxique complète, numérotation de lignes, minimap et autocomplétion.
-   - Barre d'insertion rapide en un clic pour les symboles difficiles à taper : `← Affecter`, `SI ... ALORS`, `POUR`, `TANT QUE`, `RÉPÉTER`, `SELON`, `ÉCRIRE()`, `LIRE()`, et bouton `🧹 Formater`.
+- **Système d'onglets multiples (Tabs)** : Travaillez sur plusieurs fichiers `.algo` en parallèle, basculez entre eux, et renommez-les par double-clic.
+- **Écran d'accueil interactif (Welcome Screen)** :
+  - Boutons centraux pour créer ou ouvrir rapidement un fichier.
+  - **Historique des fichiers récents** sauvegardés localement (`localStorage`) avec date de dernière modification.
+- **IntelliSense & Autocomplétion intelligente** :
+  - Tapez la première lettre (ex: `s`, `p`, `e`, `l`) et une liste de complétion apparaît instantanément avec les structures prêtes à l'emploi (`SI ... ALORS`, `POUR`, `TANT QUE`, `ÉCRIRE()`, `LIRE()`, etc.).
+- **Terminal interactif (Console & Résultat)** :
+  - Support de l'instruction `LIRE(variable)` avec invite de saisie directe en temps réel (CLI Prompt).
+  - Indicateur d'état interactif (`● Prêt`, `● En cours...`, `● Erreur`) et chronomètre de durée d'exécution.
+- **Gestionnaire de fichiers natif** :
+  - Enregistrement direct sur votre ordinateur via la boîte de dialogue système Windows (*Enregistrer sous*).
+  - Filtrage strict à l'ouverture pour n'accepter que les fichiers d'algorithme (`*.algo`).
+- **Synchronisation du nom d'algorithme** : Le titre de l'onglet se met à jour automatiquement dès que vous modifiez l'instruction `ALGORITHME Nom`.
+- **Routage Zero-Flash** : Mémorisation de l'onglet actif lors du rafraîchissement de la page (F5) sans aucun clignotement de l'écran d'accueil.
 
-2. **Moteur d'Exécution Algorithmique Français (Conforme au PDF)** :
-   - **Types de base** : `entier`, `réel`, `chaîne`, `caractère`, `booléen`.
-   - **Affectation** : `variable ← expression` (supporte aussi `<-` et `:=`).
-   - **Opérateurs arithmétiques** : `+`, `-`, `*`, `/`, `mod` (modulo), `div` (division entière), `^` (puissance).
-   - **Opérateurs de comparaison** : `=`, `<>`, `!=`, `<`, `>`, `<=`, `>=`.
-   - **Opérateurs logiques** : `ET`, `OU`, `NON`.
-   - **Entrées / Sorties interactives** : `LIRE(...)` et `ÉCRIRE(...)`.
-   - **Structures conditionnelles** : `SI ... ALORS ... SINON ... FINSI` et `SELON ... FAIRE ... CAS ... FINSELON`.
-   - **Structures répétitives** :
-     - `POUR i ← début À fin [PAS pas] FAIRE ... FINPOUR`
-     - `TANT QUE condition FAIRE ... FINTANTQUE`
-     - `RÉPÉTER ... JUSQU'À condition`
+---
 
-3. **Terminal Interactif** :
-   - Quand l'algorithme rencontre `LIRE(variable)`, le terminal demande la saisie en direct avec un curseur interactif.
-   - Couleurs syntaxiques pour les informations, les sorties, les erreurs et le temps d'exécution.
+## 📘 Syntaxe Algorithmique Supportée
 
-4. **Inspecteur de Variables en temps réel (Watch)** :
-   - Tableau dynamique affichant toutes les variables en mémoire, leur type (`entier`, `réel`, etc.) et leur valeur instantanée.
-
-5. **Débogueur Pas à Pas & Breakpoints** :
-   - Exécution pas à pas (touche `F10` ou bouton `⏯ Pas à pas`) avec surlignage de la ligne en cours d'exécution.
-   - Points d'arrêt (Breakpoints) en cliquant directement sur la marge des numéros de ligne (point rouge).
-   - Réglage de la vitesse d'exécution (Instantané, 200ms, 500ms, 1000ms).
-
-6. **Traducteur de Code en direct vers Python 3 & Langage C** :
-   - Traduit automatiquement votre algorithme en Python 3 (`input()`, `print()`, `for in range()`, `match/case`, `while`).
-   - Traduit en code source C (`printf`, `scanf`, structures de contrôle).
-   - Bouton de copie en un clic.
-
-7. **Bibliothèque d'Exemples intégrée tirée du PDF du cours** :
-   - *Surface d'un Cercle* (p. 39)
-   - *Surface d'un Rectangle* (p. 25)
-   - *Communication / Dialogue Nom & Âge* (p. 35)
-   - *Expression Âge dans 5 ans* (p. 37)
-   - *Test Majeur / Mineur* (p. 43)
-   - *Jours de la semaine avec SELON* (p. 46)
-   - *Compteur Boucle POUR* (p. 48 & 49)
-   - *Contrôle de saisie de note entre 0 et 20 avec RÉPÉTER* (p. 51)
-   - *Boucle TANT QUE* (p. 53)
-   - *Conversion Décimal vers Binaire* (p. 14-16)
+| Élément | Syntaxe acceptée |
+| :--- | :--- |
+| **En-tête** | `ALGORITHME NomProgramme` |
+| **Variables** | `VARIABLE x : entier` / `VARIABLES a, b : réel` |
+| **Types de base** | `entier`, `réel`, `chaîne`, `caractère`, `booléen` |
+| **Affectation** | `variable ← valeur` *(accepte aussi `<-` et `:=`)* |
+| **Entrées / Sorties** | `LIRE(nom)` / `ÉCRIRE("Message : ", x)` |
+| **Conditions** | `SI condition ALORS ... SINON ... FINSI` |
+| **Choix multiples** | `SELON variable FAIRE ... CAS 1 : ... CAS AUTRE : ... FINSELON` |
+| **Boucle POUR** | `POUR i ← 1 À 10 FAIRE ... FINPOUR` |
+| **Boucle TANT QUE** | `TANT QUE condition FAIRE ... FINTANTQUE` |
+| **Boucle RÉPÉTER** | `RÉPÉTER ... JUSQU'À condition` |
+| **Opérateurs** | `+`, `-`, `*`, `/`, `mod`, `div`, `^`, `=`, `<>`, `<`, `>`, `<=`, `>=`, `ET`, `OU`, `NON` |
 
 ---
 
 ## ⌨️ Raccourcis Clavier
 
-- **F5** : Exécuter l'algorithme
-- **F10** : Exécuter une instruction pas à pas
+- **F5** : Lancer / Tester l'algorithme
 - **Maj + F5** : Arrêter l'exécution
-- **Ctrl + S** : Télécharger / Enregistrer le fichier `.algo`
-- **Shift + Alt + F** : Formater et indenter le code automatiquement
+- **Ctrl + S** : Enregistrer le fichier `.algo` sur votre PC
+- **Ctrl + O** : Ouvrir un fichier `.algo`
+- **Ctrl + N** : Créer un nouvel onglet
+
+---
+
+## 👨‍💻 Auteur
+
+Développé par **[youssef-out](https://github.com/youssef-out)**
